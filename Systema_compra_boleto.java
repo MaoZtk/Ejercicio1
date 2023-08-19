@@ -1,3 +1,15 @@
+//***********************************************************************
+//Universidad del Valle de Guatemala
+//Departamento de Ciencia de la Computación
+//Autor: Marielos Ortiz, Sandra Pineda
+//Carné: 23882, 23
+//CC2008 - 50
+//Fecha: 19 de Agosto de 2023
+//Descripción: Ejercicio 1 en parejas sobre venta de voletos para formula 1.
+//El programa debe pedir información de nuevos compradores, identificar si pueden comprar un boleto,
+//Mostrar las disponibilidades de las localidades y el reporte de caja total al final.
+//************************************************************************
+import java.util.Random;
 import java.util.*;
 
 class Localidad {
@@ -82,12 +94,12 @@ class Comprador {
 }
 
 class SistemaCompraBoleto {
-    private Random randomGenerator;
+    Random random;
     private List<Localidad> localidades;
     private Comprador comprador;
 
     public SistemaCompraBoleto() {
-        randomGenerator = new Random();
+        random = new Random();
         localidades = new ArrayList<>();
         localidades.add(new Localidad(1, "Localidad 1", 20, 300.0));
         localidades.add(new Localidad(2, "Localidad 5", 20, 565.0));
@@ -100,16 +112,16 @@ class SistemaCompraBoleto {
 
     public void nuevaSolicitudBoletos() {
         if (comprador == null) {
-            System.out.println("Debe crear un nuevo comprador primero.");
+            System.out.println("\nDebe crear un nuevo comprador primero.");
             return;
         }
 
-        int ticket = randomGenerator.nextInt(28000) + 1;
-        int a = randomGenerator.nextInt(15000) + 1;
-        int b = randomGenerator.nextInt(15000) + 1;
+        int ticket = random.nextInt(28000) + 1;
+        int a = random.nextInt(15000) + 1;
+        int b = random.nextInt(15000) + 1;
 
         if ((ticket + a + b) % 2 == 1) {
-            int localidadIndex = randomGenerator.nextInt(localidades.size());
+            int localidadIndex = random.nextInt(localidades.size());
             Localidad localidad = localidades.get(localidadIndex);
 
             if (localidad.getBoletosVendidos() < localidad.getCapacidad()) {
@@ -121,15 +133,15 @@ class SistemaCompraBoleto {
                 if (boletosAVender > 0) {
                     localidad.venderBoletos(boletosAVender);
                     comprador.nuevaCompra(boletosAVender, precioLocalidad);
-                    System.out.println("¡Compra exitosa! " + comprador.getNombre() + " ha comprado " + boletosAVender + " boletos en " + localidad.getNombre() + " por $" + (precioLocalidad * boletosAVender));
+                    System.out.println("\n¡Compra exitosa! " + comprador.getNombre() + " ha comprado " + boletosAVender + " boletos en " + localidad.getNombre() + " por $" + (precioLocalidad * boletosAVender));
                 } else {
-                    System.out.println(comprador.getNombre() + " no tiene suficiente presupuesto para comprar boletos en " + localidad.getNombre());
+                    System.out.println(comprador.getNombre() + "\nno tiene suficiente presupuesto para comprar boletos en " + localidad.getNombre());
                 }
             } else {
-                System.out.println(localidad.getNombre() + " está agotada. Pruebe en otra localidad.");
+                System.out.println(localidad.getNombre() + "\nestá agotada. Pruebe en otra localidad.");
             }
         } else {
-            System.out.println("Ticket no apto para compra.");
+            System.out.println("\nTicket no apto para compra.");
         }
     }
 
@@ -144,7 +156,7 @@ class SistemaCompraBoleto {
             Localidad localidad = localidades.get(localidadIndex);
             System.out.println("En " + localidad.getNombre() + " se han vendido " + localidad.getBoletosVendidos() + " boletos. Quedan disponibles " + (localidad.getCapacidad() - localidad.getBoletosVendidos()) + " boletos.");
         } else {
-            System.out.println("Localidad no válida.");
+            System.out.println("\nLocalidad no válida.");
         }
     }
 
@@ -153,9 +165,10 @@ class SistemaCompraBoleto {
         for (Localidad localidad : localidades) {
             totalRecaudado += localidad.getBoletosVendidos() * localidad.getPrecio();
         }
-        System.out.println("Total recaudado: $" + totalRecaudado);
+        System.out.println("\nTotal recaudado: $" + totalRecaudado);
     }
 }
+
 
 public class Systema_compra_boleto {
     public static void main(String[] args) {
@@ -163,19 +176,19 @@ public class Systema_compra_boleto {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Menú:");
+            System.out.println("\nMenú:");
             System.out.println("1. Nuevo comprador");
             System.out.println("2. Nueva solicitud de boletos");
             System.out.println("3. Consultar disponibilidad total");
             System.out.println("4. Consultar disponibilidad individual");
             System.out.println("5. Reporte de caja");
             System.out.println("6. Salir");
-            System.out.print("Seleccione una opción: ");
+            System.out.print("\n Seleccione una opción: ");
             int opcion = scanner.nextInt();
 
             switch (opcion) {
                 case 1:
-                    System.out.print("Nombre del comprador: ");
+                    System.out.print("\nNombre del comprador: ");
                     scanner.nextLine(); // Consumir el salto de línea pendiente
                     String nombre = scanner.nextLine();
                     System.out.print("DPI del comprador: ");
@@ -196,7 +209,7 @@ public class Systema_compra_boleto {
                     break;
 
                 case 4:
-                    System.out.print("Ingrese el índice de la localidad (0 para Localidad 1, 1 para Localidad 5, 2 para Localidad 10): ");
+                    System.out.print("\n Ingrese el índice de la localidad (0 para Localidad 1, 1 para Localidad 5, 2 para Localidad 10): ");
                     int localidadIndex = scanner.nextInt();
                     sistema.consultarDisponibilidadIndividual(localidadIndex);
                     break;
@@ -206,11 +219,11 @@ public class Systema_compra_boleto {
                     break;
 
                 case 6:
-                    System.out.println("¡Hasta luego!");
+                    System.out.println("\n Gracias por visitarnos");
                     return;
 
                 default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
+                    System.out.println("\n Opción no válida. Intente de nuevo.");
             }
         }
     }
