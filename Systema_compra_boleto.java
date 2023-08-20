@@ -12,12 +12,23 @@
 import java.util.Random;
 import java.util.*;
 
-class Localidad {
-    private int localidadID;
-    private String nombre;
-    private int capacidad;
-    private int boletosVendidos;
-    private double precio;
+/**
+ * Clase que almacena informacion de las tres localidades
+ */
+class Localidad { 
+    private int localidadID; 
+    private String nombre; 
+    private int capacidad; 
+    private int boletosVendidos; 
+    private double precio; 
+
+     /**
+     * Constructor de la clase Localidad.
+     * @param localidadID Identificador único de la localidad.
+     * @param nombre Nombre de la localidad.
+     * @param capacidad Capacidad por localidad.
+     * @param precio Precio de cada boleto por localidad.
+     */
 
     public Localidad(int localidadID, String nombre, int capacidad, double precio) {
         this.localidadID = localidadID;
@@ -47,12 +58,19 @@ class Localidad {
         return precio;
     }
 
-    public void venderBoletos(int cantidad) {
+     /**
+     * Método para vender boletos de una localidad.
+     * @param cantidad La cantidad de boletos a vender.
+     */
+    public void venderBoletos(int cantidad) { //Metodo que registra la venta de boletos 
         boletosVendidos += cantidad;
     }
 }
 
-class Comprador {
+/**
+ * Clase que almacena los datos de usuario
+ */
+class Comprador { 
     private String nombre;
     private String dpi;
     private int cantidadBoletosDeseados;
@@ -87,18 +105,28 @@ class Comprador {
         return boletosComprados;
     }
 
-    public void nuevaCompra(int cantidad, double precio) {
+    /**
+     * Método para registrar una nueva compra 
+     * @param nombre El nombre del comprador.
+     * @param dpi El DPI del comprador.
+     * @param cantidadBoletosDeseados La cantidad de boletos deseados por el comprador.
+     * @param presupuestoMaximo El presupuesto máximo del comprador para la compra.
+     */
+    public void nuevaCompra(int cantidad, double precio) { 
         boletosComprados += cantidad;
         presupuestoMaximo -= cantidad * precio;
     }
 }
 
-class SistemaCompraBoleto {
+/**
+ * Clase principal la cual gestiona el sistema de compra
+ */
+class SistemaCompraBoleto { 
     Random random;
     private List<Localidad> localidades;
     private Comprador comprador;
 
-    public SistemaCompraBoleto() {
+    public SistemaCompraBoleto() { //Constructor que inicializa las localidades y genera numeros random
         random = new Random();
         localidades = new ArrayList<>();
         localidades.add(new Localidad(1, "Localidad 1", 20, 300.0));
@@ -107,10 +135,12 @@ class SistemaCompraBoleto {
     }
 
     public void nuevoComprador(String nombre, String dpi, int cantidadBoletosDeseados, double presupuestoMaximo) {
+        //Metodo en el cual se genera un nuevo comprador
         comprador = new Comprador(nombre, dpi, cantidadBoletosDeseados, presupuestoMaximo);
     }
 
-    public void nuevaSolicitudBoletos() {
+    public void nuevaSolicitudBoletos() { 
+        //Metodo para generar una nueva solicitud de compra de boletos
         if (comprador == null) {
             System.out.println("\nDebe crear un nuevo comprador primero.");
             return;
@@ -146,12 +176,14 @@ class SistemaCompraBoleto {
     }
 
     public void consultarDisponibilidadTotal() {
+        //Metodo que muestra la disponibilidad de los boletos en las tres localidades
         for (Localidad localidad : localidades) {
             System.out.println("En " + localidad.getNombre() + " se han vendido " + localidad.getBoletosVendidos() + " boletos. Quedan disponibles " + (localidad.getCapacidad() - localidad.getBoletosVendidos()) + " boletos.");
         }
     }
 
     public void consultarDisponibilidadIndividual(int localidadIndex) {
+        //Metodo para mostrar disponibilidad por localidad
         if (localidadIndex >= 0 && localidadIndex < localidades.size()) {
             Localidad localidad = localidades.get(localidadIndex);
             System.out.println("En " + localidad.getNombre() + " se han vendido " + localidad.getBoletosVendidos() + " boletos. Quedan disponibles " + (localidad.getCapacidad() - localidad.getBoletosVendidos()) + " boletos.");
@@ -161,6 +193,7 @@ class SistemaCompraBoleto {
     }
 
     public void reporteCaja() {
+        //Metodo que calcula el total de dinero 
         double totalRecaudado = 0.0;
         for (Localidad localidad : localidades) {
             totalRecaudado += localidad.getBoletosVendidos() * localidad.getPrecio();
@@ -169,9 +202,12 @@ class SistemaCompraBoleto {
     }
 }
 
-
+/**
+ * Clase principal que contiene el método main para ejecutar el sistema.
+ */
 public class Systema_compra_boleto {
     public static void main(String[] args) {
+        //Menu del sistema 
         SistemaCompraBoleto sistema = new SistemaCompraBoleto();
         Scanner scanner = new Scanner(System.in);
 
