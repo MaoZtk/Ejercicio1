@@ -2,12 +2,15 @@
 //Universidad del Valle de Guatemala
 //Departamento de Ciencia de la Computación
 //Autor: Marielos Ortiz, Sandra Pineda
-//Carné: 23882, 23
+//Carné: 23882, 231137
 //CC2008 - 50
 //Fecha: 19 de Agosto de 2023
 //Descripción: Ejercicio 1 en parejas sobre venta de voletos para formula 1.
 //El programa debe pedir información de nuevos compradores, identificar si pueden comprar un boleto,
 //Mostrar las disponibilidades de las localidades y el reporte de caja total al final.
+//https://www.discoduroderoer.es/como-hacer-un-menu-de-opciones-en-consola-en-java/
+//https://www.w3schools.com/java/ref_string_indexof.asp
+//https://www.geeksforgeeks.org/generating-random-numbers-in-java/
 //************************************************************************
 import java.util.Random;
 import java.util.*;
